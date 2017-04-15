@@ -1,0 +1,9 @@
+.example-card {
+  width: 400px;
+
+}
+
+.example-header-image {
+  background-image: url('http://i.imgur.com/tw2Wpne.jpg');
+  background-size: cover;
+}
