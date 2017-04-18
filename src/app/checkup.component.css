@@ -1,0 +1,9 @@
+.patient-info-card, .symptoms-card,.result-card {
+	width: 400px;
+	margin: auto;
+}
+
+.erase {
+    text-align-last: right;
+    margin-top: -15px;
+}

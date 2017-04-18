@@ -1,0 +1,75 @@
+<form #personInfoForm="ngForm" (ngSubmit)="onSubmit()">
+	<md-card class="patient-info-card" style="opacity:0.8">
+		<md-card-header style="opacity:1">
+			<md-card-title>Patient Info</md-card-title>
+			<md-card-subtitle>Basic Information regarding patient</md-card-subtitle>
+		</md-card-header>
+		<md-card-content style="opacity:1">
+			<md-radio-group class="form-control" name="sex" [(ngModel)]="person_info.sex" required>
+			  <md-radio-button value="Male">Male</md-radio-button>
+			  <md-radio-button value="Female">Female</md-radio-button>
+			</md-radio-group>
+		</md-card-content>
+		<md-input-container style="opacity:1">
+			<input class="form-control" name="age" [(ngModel)]="person_info.age" mdInput placeholder="Age" type="number">
+		</md-input-container>
+		<md-card-content style="opacity:1">
+			<label> Height (cm): </label><md-slider class="form-control" name="height" [(ngModel)]="person_info.height" [max]="250" [min]="50" [value]="100" [thumb-label]="true" [step]="1"></md-slider>
+		</md-card-content>
+		<md-card-content style="opacity:1">
+			<label> Weight (kg): </label><md-slider  class="form-control" name="weight" [(ngModel)]="person_info.weight" [max]="150" [min]="10" [value]="75" [thumb-label]="true" [step]="1"></md-slider>
+		</md-card-content>
+		<button style="opacity:1" type="submit" md-raised-button color="accent">Next</button>
+	</md-card>
+</form>
+<br>
+<md-card class="symptoms-card" *ngIf = "showSelectedSymptom" style="opacity:0.8">
+	<md-card-header style="opacity:1">
+		<md-card-title>Symptoms</md-card-title>
+	</md-card-header>
+	<md-input-container style="width: 100%" style="opacity:1">
+  		<input mdInput placeholder="Symptom" [mdAutocomplete]="auto" [formControl]="symptomsCtrl" [(ngModel)]="searchValue">
+	</md-input-container>
+	<md-autocomplete #auto="mdAutocomplete" style="opacity:1">
+		<md-option (click)="addSymptom(symptom)" *ngFor="let symptom of filteredSymptoms | async" [value]="symptom">
+			{{ symptom }}
+		</md-option>
+	</md-autocomplete>
+	<md-chip-list class="mat-chip-list-stacked" style="opacity:1">
+ 		<md-chip *ngFor="let selectedSymptom of selectedSymptoms"
+      		selected="true" color="accent">
+    		{{selectedSymptom}}
+    		<div (click)="removeSymptom(selectedSymptom)" class="erase">X</div>
+  		</md-chip>
+	</md-chip-list>
+	<br>
+	<button md-raised-button color="accent" (click)="diagnose()" style="opacity:1" [disabled]="selectedSymptoms.length==0">Submit</button>
+</md-card>
+
+<br>
+<form #leftSymptoms="ngForm" (ngSubmit)="diagnoseFurther()" *ngIf = "leftOverSymptoms.length !== 0">
+	<md-card class="result-card" style="opacity:0.8">
+		<md-card-header style="opacity:1">
+			<md-card-title>Do you have any of these symptoms?</md-card-title>
+		</md-card-header>
+		<section class="result-section">
+		<li *ngFor = "let leftOverSymptom of leftOverSymptoms">
+	      <md-checkbox (click)="addMoreSymptom(leftOverSymptom)" class="form-control" name="leftOverSymptom">{{leftOverSymptom}}</md-checkbox>
+	    </li>
+	    </section>
+	    <br>
+	<button type="submit" md-raised-button color="accent">Submit</button>
+	</md-card>
+</form>
+<br>
+<md-card class="result-card" *ngIf = "finalDisease" style="opacity:0.8">
+		<md-card-header style="opacity:1">
+			<md-card-title >You might be having {{finalDisease.DISEASE.name}} <br><br> HOPE YOU GET WELL SOON!
+			<br><br> Your unique id is <br><h3 style="color:red">{{UserId}}</h3>Please save it for making us better by giving your valuable feedback
+			 </md-card-title>
+		</md-card-header>
+	<button style="opacity:1" (click) = "backToHome()" md-raised-button color="accent">Back to home</button>
+</md-card>
+
+
+
