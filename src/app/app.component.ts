@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DISEASES } from './mock-disease'; 
 import 'hammerjs';
 
 @Component({
