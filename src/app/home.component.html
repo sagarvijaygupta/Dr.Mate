@@ -1,0 +1,40 @@
+<div class="materials-doc-app">
+  <div class="docs-header-background">
+    <div class="docs-header-section">
+    <md-card class="feedback-card" style="opacity:0.8">
+      <div class="docs-header-line" style="opacity:1">
+        <h1>DrMate</h1>
+        <h2>Doctor at your fingertips</h2>
+      </div>
+      <div class="docs-header-start" style="opacity:1">
+        <a routerLink="/checkup" md-raised-button color="accent">Check up now</a><br><br>
+        <button (click)="showFeedback()" md-raised-button color="accent">Feedback</button>
+      </div>
+      </md-card>
+    </div>
+  </div>
+</div>
+
+<div class="feedback" *ngIf="feedback" style="opacity:0.8">
+  <md-card class="feedback-card" style="opacity:1">
+    <md-card-header>
+      <md-card-title>Feedback</md-card-title>
+    </md-card-header>
+    <md-input-container class="user-id" style="opacity:1">
+      <input mdInput placeholder="User Id" color="accent" class="form-control" [(ngModel)] = "userId">
+    </md-input-container>
+    <br>
+    <md-card-content>
+      <label>Was the prediction correct?</label><br><br>
+      <md-radio-group class="form-control" name="feed" [(ngModel)]="feed" required>
+        <md-radio-button value="yes">Yes</md-radio-button>
+        <md-radio-button value="no">No</md-radio-button>
+      </md-radio-group>
+    </md-card-content>
+    <button type="submit" md-raised-button color="accent" (click) = "feedBack()">Submit</button>
+  </md-card>
+</div>
+
+<div>
+  <router-outlet></router-outlet>
+</div>
